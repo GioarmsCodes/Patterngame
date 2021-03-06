@@ -59,3 +59,61 @@ generato verrà salvato all’indirizzo dell’indice.
 
 ![image](https://user-images.githubusercontent.com/75253452/110202280-cbbfad80-7e67-11eb-9012-d4a1e77f1035.png)
 
+
+### Mostra a schermo
+
+La fase di mostra a schermo , inizia con la fine della fase di 
+generazione, è gestita da 3 moduli : 
+Mod_Round
+(
+1),Mod_Video control
+(2)
+,Mod_Lif
+e
+(3).
+Mod_Round : è un counter un po’ modificato, che dice al 
+Gestore output video quanti quadrati far vedere.
+Mod_Video control : modulo che riceve in input il 
+numero di quadrati da far vedere dal modulo Round 
+attuale e il clock(il quale viene bloccato in determinate 
+situazioni), e ha come output il quadrato(round da 
+mostrare) da far vedere in quel momento , il segnale se far 
+vedere a schermo e il segnale che indica la fine della 
+mostra del pattern.
+Il tunnel [Round da mostrare] va all’interno del 
+Mod_Vide
+o
+(4) che codifica il numero da mostrare in output 
+video per una matrice 16x16.
+Mod_Lif
+e : modulo che riceve un input again e da il 
+commando a Mod_Video control di far rivedere l’intera
+sequenza a schermo.
+
+![image](https://user-images.githubusercontent.com/75253452/110202330-180aed80-7e68-11eb-8e94-9d452b2058e9.png)
+
+### Controllo input
+
+La fase di controllo dell’input, inizia con la fine della 
+fase di mostra a schermo, è gestita da un modulo
+:
+Mod_Check
+Il modulo Mod_Check(1) legge dal Mod_Memory(2) i dati che dovrà controllare.
+Al click dei bottoni di input il modulo controlla se il dato 
+cliccato è giusto , in caso positivo modifica l’indice di 
+controllo avanti di uno, quando l’indice di controllo 
+raggiungerà il numero del round attuale il modulo 
+emette un segnale [prossimo] che aggiornerà il valore 
+di round attuale(facendolo aumentare di 1) e questa 
+modifica resetterà la parte di mostra a schermo e 
+controllo input . Dunque si tornerà alla fase di mostra a 
+schermo , dalla quale si ricomincerà con il valore di 
+round attuale più alto.
+Al raggiungimento del round scelto all’inizio della 
+partita verrà messo a schermo una V in caso di vittoria 
+oppure una L in caso di resa(Dopo aver cliccato again 4 
+volte)
+.
+
+![image](https://user-images.githubusercontent.com/75253452/110202359-45579b80-7e68-11eb-8272-acec63cede6b.png)
+
